@@ -3,6 +3,7 @@ def read_input_file(file_name: str) -> list:
         content = f.read().splitlines()
 
     content = [int(c) for c in content]
+    # content = list(map(int, content))
 
     return content
 
@@ -32,8 +33,6 @@ def compute_part_two(file_name: str) -> int:
             mass = mass // 3 - 2
 
     return sum_mass
-
-
 
 
 if __name__ == '__main__':
