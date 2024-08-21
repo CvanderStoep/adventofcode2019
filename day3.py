@@ -16,7 +16,7 @@ def process_input(inputs: list) -> list:
     return wires
 
 
-def process_wire_direction(instruction: str) -> (int, int):
+def process_wire_instructions(instruction: str) -> (int, int):
     direction = instruction[0]
     amount = int(instruction[1:])
     dx, dy = 0, 0
@@ -49,11 +49,11 @@ def calculate_range(x: int, y: int, dx: int, dy: int) -> (int, int, int, int, in
     return x1, x2, y1, y2, step_x, step_y
 
 
-def calculate_wire_set(wire: list) -> set:
+def calculate_wire_path(wire: list) -> set:
     wire_set = set()
     x, y = 0, 0
     for instruction in wire:
-        dx, dy = process_wire_direction(instruction)
+        dx, dy = process_wire_instructions(instruction)
         x1, x2, y1, y2, step_x, step_y = calculate_range(x, y, dx, dy)
 
         for i in range(x1, x2, step_x):
@@ -71,7 +71,7 @@ def calculate_wire_distance_to_intersection(wire: list, intersections: set) -> d
     steps = 0
     for instruction in wire:
         steps -= 1  # correct for double count when starting new direction
-        dx, dy = process_wire_direction(instruction)
+        dx, dy = process_wire_instructions(instruction)
         x1, x2, y1, y2, step_x, step_y = calculate_range(x, y, dx, dy)
         for i in range(x1, x2, step_x):
             for j in range(y1, y2, step_y):
@@ -87,8 +87,8 @@ def calculate_wire_distance_to_intersection(wire: list, intersections: set) -> d
 def compute_part_one(file_name: str) -> int:
     inputs = read_input_file(file_name)
     wires = process_input(inputs)
-    wire1_set = calculate_wire_set(wires[0])
-    wire2_set = calculate_wire_set(wires[1])
+    wire1_set = calculate_wire_path(wires[0])
+    wire2_set = calculate_wire_path(wires[1])
 
     intersections = wire1_set.intersection(wire2_set)
     intersections.remove((0, 0))
@@ -103,8 +103,8 @@ def compute_part_one(file_name: str) -> int:
 def compute_part_two(file_name: str) -> int:
     inputs = read_input_file(file_name)
     wires = process_input(inputs)
-    wire1_set = calculate_wire_set(wires[0])
-    wire2_set = calculate_wire_set(wires[1])
+    wire1_set = calculate_wire_path(wires[0])
+    wire2_set = calculate_wire_path(wires[1])
 
     intersections = wire1_set.intersection(wire2_set)
     intersections.remove((0, 0))
