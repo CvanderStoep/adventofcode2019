@@ -10,12 +10,12 @@ def read_input_file(file_name: str) -> list:
 def compute_part_one(file_name: str) -> int:
     inputs = read_input_file(file_name)
     print(inputs)
-    return 0
+    return 1
 
 
 def compute_part_two(file_name: str) -> int:
     inputs = read_input_file(file_name)
-    return 1
+    return 2
 
 
 if __name__ == '__main__':
