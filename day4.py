@@ -4,7 +4,7 @@ def check_number(number: int, part: int) -> bool:
         return False
 
     number_string = str(number)
-    # doubles = ['00', '11', '22', '33', '44', '55', '66', '77', '88', '99']
+    # doubles = ['00', '11', '22', ... '99']
     doubles = [str(i) * 2 for i in range(10)]
 
     if part == 1:
@@ -14,7 +14,7 @@ def check_number(number: int, part: int) -> bool:
             return False
 
     # part 2
-    # triples = ['000', '111', '222', '333', '444', '555', '666', '777', '888', '999']
+    # triples = ['000', '111', ... '999']
     triples = [str(i) * 3 for i in range(10)]
     if any(d in number_string and t not in number_string for d, t in zip(doubles, triples)):
         return True
