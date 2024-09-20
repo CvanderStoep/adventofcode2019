@@ -53,7 +53,7 @@ def print_picture(image: list, height: int, width: int) -> None:
             if pixel == 0:
                 pixel = ' '
             else:
-                pixel = '*'
+                pixel = '@'
             print(pixel, end='')
         print()
 

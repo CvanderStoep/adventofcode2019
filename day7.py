@@ -42,9 +42,9 @@ def run_program(intcode, inputs):
     return output_value
 
 
-def get_diagnostic_code(program, inputs):
-    # return run_program([x for x in program], inputs)
-    return run_program(program, inputs)
+# def get_diagnostic_code(program, inputs):
+#     # return run_program([x for x in program], inputs)
+#     return run_program(program, inputs)
 
 
 def compute_part_one(file_name: str) -> int:
@@ -55,7 +55,8 @@ def compute_part_one(file_name: str) -> int:
         for phase in phases:
             with open(file_name, 'r') as f:
                 program = list(map(int, f.read().split(',')))
-            output_code = get_diagnostic_code(program, [phase, output_code])
+            # output_code = get_diagnostic_code(program, [phase, output_code])
+            output_code = run_program(program, [phase, output_code])
             max_output = max(max_output, output_code)
     print(f'{max_output= }')
     return max_output

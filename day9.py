@@ -1,7 +1,6 @@
-# https://github.com/ameroyer/advent_of_code_2019/blob/master/day05.ipynb
-
 def run_program(intcode, inputs):
     counter = 0
+    relative_base = 0
     output_value = None
     while intcode[counter] != 99:
         codes = "%05d" % intcode[counter]
@@ -10,12 +9,18 @@ def run_program(intcode, inputs):
         assert codes[0] == 0
         # Outputs
         if opcode == 4:
-            output_value = intcode[intcode[counter + 1]]
+            if codes[2] == 2:
+                output_value = intcode[intcode[counter + 1] + relative_base]
+            else:
+                output_value = intcode[intcode[counter + 1]]
             counter += 2
         # Inputs
         elif opcode == 3:
             assert codes[1] == codes[2] == 0
-            intcode[intcode[counter + 1]] = inputs.pop()
+            intcode[intcode[counter + 1]] = inputs.pop(0)
+            counter += 2
+        elif opcode == 9:
+            relative_base += intcode[counter + 1]
             counter += 2
         else:
             x, y = intcode[counter + 1:counter + 3]
@@ -41,12 +46,15 @@ def run_program(intcode, inputs):
     return output_value
 
 
-def get_diagnostic_code(program, inputs):
-    return run_program([x for x in program], inputs)
+def compute_part_one(file_name: str) -> int:
+    with open(file_name, 'r') as f:
+        program = list(map(int, f.read().split(',')))
+        # TODO transform list to dictionary with default value 0 as output; dict.get(n, 0)
+    output_code = run_program(program, [1])
+    print(f'{output_code= }')
 
 
-with open("test/input/input5.txt", 'r') as f:
-    inputs = list(map(int, f.read().split(',')))
+if __name__ == '__main__':
+    print(f"Part I: {compute_part_one('test/input/input9.txt')}")
 
-print("Diagnostic code:", get_diagnostic_code(inputs, [1]))
-print("Extended diagnostic code:", get_diagnostic_code(inputs, [5]))
+
