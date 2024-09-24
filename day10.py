@@ -68,19 +68,6 @@ def compute_part_one(file_name: str) -> int:
         # DONE optimize search grid; if outside grid, search can stop.
         # DONE make function: list_visible_asteroids(map, station) -> map
         asteroid_map = list_visible_asteroids(asteroid_map, monitoring_station, grid_size)
-        # for layer in range(1, grid_size):
-        #     nb = neighbours(monitoring_station, layer)
-        #     for asteroid in nb:
-        #         if asteroid in asteroid_map:
-        #             vector = (asteroid[0] - monitoring_station[0], asteroid[1] - monitoring_station[1])
-        #             gcd_ = math.gcd(vector[0], vector[1])  # reduce for example vector (4,2) to (2,1)
-        #             vector = (int(vector[0] / gcd_), int(vector[1] / gcd_))
-        #             for i in range(1, grid_size):
-        #                 x, y = (asteroid[0] + i * vector[0], asteroid[1] + i * vector[1])
-        #                 if abs(x) > grid_size or abs(y) > grid_size:
-        #                     break
-        #                 elem_to_remove = (x, y)
-        #                 asteroid_map.discard(elem_to_remove)
 
         detected_asteroids = len(asteroid_map) - 1
         if detected_asteroids > max_detected_asteroids:
@@ -127,12 +114,6 @@ def compute_part_two(file_name: str) -> int:
                 answer_200 = 100 * asteroid[0] + asteroid[1]
 
     return answer_200
-
-
-# def compute_part_two(file_name: str) -> int:
-#     inputs = read_input_file(file_name)
-#     #https://stackoverflow.com/questions/57783022/how-to-sort-a-list-of-tuples-of-coordinates-in-counter-clockwise-direction#:~:text=You%20could%20use%20the%202-argument%20arctangent%20to%20compute,%5B%283%2C%201%29%2C%20%282%2C%202%29%2C%20%280%2C%201%29%2C%20%28-1%2C%200%29%5D
-#     return 2
 
 
 if __name__ == '__main__':
